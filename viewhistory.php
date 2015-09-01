@@ -4,6 +4,7 @@ require_once('../../config.php');
 require_once('unitplanningtool_form.php');
 global $DB, $OUTPUT, $PAGE;
 $PAGE->set_url('/blocks/unitplanningtool/view.php');
+$PAGE->set_context(context_system::instance());
 $PAGE->requires->js('/blocks/unitplanningtool/js/jquery-2.1.4.min.js',true);
 $PAGE->requires->js('/blocks/unitplanningtool/js/jquery.tablesorter.min.js',true);
 $PAGE->requires->js('/blocks/unitplanningtool/js/history.js',true);
@@ -16,7 +17,7 @@ $editnode = $settingsnode->add("Department Summary", $editurl);
 $editnode = $settingsnode->add("Course History", $editurl2);
 $editnode->make_active();
 $unitplanningtool = new unitplanningtool_form();
-$display = $OUTPUT->heading($unitplanningtool->pagetitle);
+$display = $OUTPUT->heading("Unit Planning Tool");
 // Syntax for count: SELECT COUNT(column_name) FROM table_name;
 $dep_id = htmlspecialchars($_GET['id']);
 $sql = "SELECT c.id, c.shortname, c.idnumber, c.fullname, u.firstname, u.lastname, u.deleted FROM {course} AS c JOIN {context} AS ctx 
@@ -75,8 +76,12 @@ foreach($customquery as $key => $val){
 	$sectionid = substr($short[1], 0, 1);
 	$yearsem = explode("(", $val->fullname);
 	$yearc = explode(" ", substr($yearsem[1], 0, -1));
-	echo "<tr> <td>". $short[0]. "</td><td>". $sectionid . "</td><td>". $CRN[0] . "</td><td>". $yearsem[0]. "</td><td>". $yearc[1]." " .$yearc[0]. "</td><td> 3 </td><td>". $val->firstname ."</td><td>". $val->lastname ."</td><td>". 
-	$studentquery[$key]->students."</td> </tr>";
+	$student_num = "-";
+    if(array_key_exists($key, $studentquery)){
+        $student_num = $studentquery[$key]->students;
+    } 
+    echo "<tr> <td>". $short[0]. "</td><td>". $sectionid . "</td><td>". $CRN[0] . "</td><td>". $yearsem[0]. "</td><td>". $yearc[1]." " .$yearc[0]. "</td><td> 3 </td><td>". $val->firstname ."</td><td>". $val->lastname ."</td><td>". 
+	$student_num."</td> </tr>";
 }
 // closing tags
 echo "</table>";
@@ -89,8 +94,12 @@ foreach($customquery2 as $key => $val){
 	$sectionid = substr($short[1], 0, 1);
 	$yearsem = explode("(", $val->fullname);
 	$yearc = explode(" ", substr($yearsem[1], 0, -1));
+    $student_num2 = "-";
+    if(array_key_exists($key, $studentquery2)){
+        $student_num2 = $studentquery2[$key]->students;
+    } 
 	echo "<tr> <td>". $short[0]. "</td><td>". $sectionid . "</td><td>". $CRN[0] . "</td><td>". $yearsem[0]. "</td><td>". $yearc[1]." " .$yearc[0]. "</td><td> 3 </td><td>". $val->firstname ."</td><td>". $val->lastname ."</td><td>". 
-	$studentquery2[$key]->students."</td> </tr>";
+	$student_num2."</td> </tr>";
 }
 echo "</table>";
 echo "<a href='#' id='resetBut' class='btn btn-primary text-center' onclick='refreshPage()'> Reset Sort </a>";

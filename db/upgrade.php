@@ -4,7 +4,7 @@ function xmldb_block_unitplanningtool_upgrade($oldversion = 0) {
     global $DB;
     $dbman = $DB->get_manager();
     $result = TRUE;     
-    if ($oldversion < 2015080600) {
+    if ($oldversion < 2015080700) {
         // Define table block_unitplanningtool to be created.
         $table = new xmldb_table('block_unitplanningtool');
 
@@ -13,7 +13,8 @@ function xmldb_block_unitplanningtool_upgrade($oldversion = 0) {
         $table->add_field('course_id', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
         $table->add_field('course_fullname', XMLDB_TYPE_TEXT, null, null, null, null, null);
         $table->add_field('course_teacher', XMLDB_TYPE_TEXT, null, null, null, null, null);
-
+        $table->add_field('course_credit', XMLDB_TYPE_INTEGER, '1', null, null, null, null, null);
+$field = new xmldb_field('course_credit', XMLDB_TYPE_INTEGER, '1', null, null, null, null, 'course_teacher');
         // Adding keys to table block_unitplanningtool.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
 
@@ -23,7 +24,7 @@ function xmldb_block_unitplanningtool_upgrade($oldversion = 0) {
         }
 
         // Unitplanningtool savepoint reached.
-        upgrade_block_savepoint(true, 2015080600, 'unitplanningtool');
+        upgrade_block_savepoint(true, 2015080700, 'unitplanningtool');
     }
     return $result;
 }

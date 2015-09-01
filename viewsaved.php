@@ -2,6 +2,7 @@
 require_once('../../config.php');
 require_once('unitplanningtool_form.php');
 global $DB, $OUTPUT, $PAGE, $COURSE;
+$PAGE->set_context(context_system::instance());
 $PAGE->set_url('/blocks/unitplanningtool/viewsaved.php');
 $PAGE->set_pagelayout('standard');
 $PAGE->set_heading("Unit Planning Tool");
@@ -14,7 +15,7 @@ $editnode = $settingsnode->add("Course History", $editurl2);
 $editnode = $settingsnode->add("Saved Courses", $editurl3);
 $editnode->make_active();
 $unitplanningtool = new unitplanningtool_form();
-$display = $OUTPUT->heading($unitplanningtool->pagetitle);
+$display = $OUTPUT->heading("Unit Planning Tool");
 
 echo $OUTPUT->header();
 $unitplanningtool->display();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/unitplanningtool/db" VERSION="20150817" COMMENT="XMLDB file for Moodle blocks/unitplanningtool"
+<XMLDB PATH="blocks/unitplanningtool/db" VERSION="20150826" COMMENT="XMLDB file for Moodle blocks/unitplanningtool"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -10,6 +10,11 @@
         <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="course_fullname" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="course_teacher" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Fullname"/>
+        <FIELD NAME="course_credit" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="seating_cap" TYPE="int" LENGTH="5" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="date" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="course_fee" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="proposal_short" TYPE="binary" NOTNULL="false" SEQUENCE="false" COMMENT="Whether the proposal is a first time proposal or not, which would mean a long or short proposal"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
